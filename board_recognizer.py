@@ -1,6 +1,7 @@
 import cv2
 import numpy as np
 import operator
+import csv
 
 
 def image_resize(image, width = None, height = None, inter = cv2.INTER_AREA):
@@ -221,7 +222,7 @@ def get_digits(img, squares, size):
 
 
 
-img = cv2.imread("sudoku_2.jpg")
+img = cv2.imread("sudoku_1.jpg")
 img = image_resize(img, height = 500)
 cv2.imshow("Original Image", img)
 
@@ -247,6 +248,17 @@ def show_digits(digits, colour=255):
     cv2.imshow('digits',np.concatenate(rows))
 
 show_digits(digits)
+cv2.imshow('dig', digits[2])
+value = np.asarray(digits[2], dtype=np.int).reshape((digits[2].shape[1], digits[2].shape[0]))
+value = value.flatten()
+print(value)
+with open("img_pixels.csv", 'a') as f:
+    writer = csv.writer(f)
+    writer.writerow(value)
+
+
+
+
 # for corner in corners:
 #     cv2.circle(img,(int(corner[0]),int(corner[1])), 6, (0,0,255))
 
